@@ -32,11 +32,20 @@ public class CarSevice {
     EngineRepository engineRepository;
 
     public CarResponseVO getCarByName(String name) {
-        return CarResponseVO.create(carRepository.findByCarName(name));
+        try {
+            return CarResponseVO.create(carRepository.findByCarName(name));
+        } catch (Exception e) {
+            throw new ServiceException("No Car found for carGetName[%s]", name);
+        }
     }
 
     public CarResponseVO getCarByModel(String model) {
-        return CarResponseVO.create(carRepository.findByCarName(model));
+        try {
+            Car findByCarName = carRepository.findByCarModel(model);
+            return CarResponseVO.create(findByCarName);
+        } catch (Exception e) {
+            throw new ServiceException("No Car found for carGetModel[%s]", model);
+        }
     }
 
     public List<CarResponseVO> listCarByYearFactory(int yearFactory) {
@@ -159,9 +168,7 @@ public class CarSevice {
         for(Car car:  carRepository.listAll()) {
             listCarsResponseVO.add(CarResponseVO.create(car));
         }
-
         return listCarsResponseVO;
-
     }
 
 }

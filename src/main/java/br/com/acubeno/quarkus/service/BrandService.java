@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.sql.rowset.serial.SerialException;
 import javax.transaction.Transactional;
 
 import br.com.acubeno.quarkus.entity.Brand;
@@ -13,7 +12,6 @@ import br.com.acubeno.quarkus.exception.ServiceException;
 import br.com.acubeno.quarkus.repository.BrandRepository;
 import br.com.acubeno.quarkus.vo.BrandRequestVO;
 import br.com.acubeno.quarkus.vo.BrandResponseVO;
-import br.com.acubeno.quarkus.vo.EngineRequestVO;
 
 @ApplicationScoped
 public class BrandService {
@@ -21,8 +19,13 @@ public class BrandService {
     @Inject
     BrandRepository brandRepository;
 
-    public BrandResponseVO getBrandName(String brandNane) {
-        return BrandResponseVO.create(brandRepository.findByBrandName(brandNane));
+    public BrandResponseVO getBrandName(String brandName) {
+        try {
+            return BrandResponseVO.create(brandRepository.findByBrandName(brandName));
+        } catch (Exception e) {
+            throw new ServiceException("No Brand found for brandGetName[%s]", brandName);
+        }
+
     }
 
     @Transactional
@@ -51,19 +54,20 @@ public class BrandService {
             brandResponseVO = new BrandResponseVO();
             findById.setBrandName(brandRequestVO.getBrandName());
             brandRepository.persist(findById);
-            BrandResponseVO.create(findById);
+            brandResponseVO = BrandResponseVO.create(findById);
         } else {
             throw new ServiceException("No Brand found for brandId[%s]");
         }
         return brandResponseVO;
     }
 
+    @Transactional
     public void delete(String brandName) {
         Brand findByBrandName = brandRepository.findByBrandName(brandName);
         if(findByBrandName != null) {
             brandRepository.delete(findByBrandName);
         } else {
-            throw new ServiceException("No Brand found for brandId[%s]");
+            throw new ServiceException("No Brand found for brandId[%s]", brandName);
         }
     }
 

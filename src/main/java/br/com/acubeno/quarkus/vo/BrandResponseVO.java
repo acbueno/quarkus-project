@@ -19,8 +19,9 @@ public class BrandResponseVO {
     public static BrandResponseVO create(Brand brand) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
+        BrandResponseVO map = modelMapper.map(brand, BrandResponseVO.class);
 
-        return modelMapper.map(brand, BrandResponseVO.class);
+        return map;
     }
 
 }

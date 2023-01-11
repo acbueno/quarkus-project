@@ -15,3 +15,5 @@ insert into car (brand_id, chassis_number, color, engine_id, model, name, year_f
 insert into car (brand_id, chassis_number, color, engine_id, model, name, year_factory, year_model) values (3, '2E47-PHFB-NL1G-X1Z7', 'Cinza Magnum', 5, 'SV', 'Sentra', 2019, 2019);
 
 insert into car (brand_id, chassis_number, color, engine_id, model, name, year_factory, year_model) values (2, '9JYZ-6C9T-4HV8-4XJP', 'GOL', 3, 'Trend', 'GOL', 2020, 2021);
+
+insert into car (brand_id, chassis_number, color, engine_id, model, name, year_factory, year_model) values (2, 'FRHK-2USO-1ZEU-BFCK', 'Vermelho GTS', 3, 'GOL LAST EDTION', 'GOL', 2021, 2022);
