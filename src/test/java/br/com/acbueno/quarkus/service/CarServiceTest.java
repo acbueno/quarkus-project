@@ -76,7 +76,7 @@ public class CarServiceTest {
 
     @Test
     @Order(8)
-    public void test_saveCar() {
+    public void test_saveCarSuccess() {
         CarRequestVO carRequestVO = new CarRequestVO();
         carRequestVO.setBrandName("TOYOTA");
         carRequestVO.setChassisNumber("ZWO2-VPY6-UTLB-U9IS");
@@ -118,6 +118,27 @@ public class CarServiceTest {
         carRequestVO.setYearFactory(2010);
         carRequestVO.setYearModel(2011);
         carRequestVO.setName("Civic");
+
+        try {
+            carSevice.update(nameCar, carRequestVO);
+        } catch (Exception e) {
+            Assertions.assertThrows(ServiceException.class, () -> carSevice.update(nameCar, carRequestVO));
+        }
+    }
+
+    @Test
+    @Order(10)
+    public void test_updateEngineNotFoundFail() {
+        String nameCar = "";
+        CarRequestVO carRequestVO = new CarRequestVO();
+        carRequestVO.setBrandName("HONDA");
+        carRequestVO.setChassisNumber("KH9N-GAJR-FE6W-FU3D");
+        carRequestVO.setColor("Prata Madri");
+        carRequestVO.setModel("EXL");
+        carRequestVO.setYearFactory(2010);
+        carRequestVO.setYearModel(2011);
+        carRequestVO.setName("Civic");
+
         try {
             carSevice.update(nameCar, carRequestVO);
         } catch (Exception e) {

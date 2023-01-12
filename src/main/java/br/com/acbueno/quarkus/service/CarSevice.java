@@ -124,17 +124,10 @@ public class CarSevice {
             findByCarName.setYearModel(carRequestVO.getYearModel());
             findByCarName.setColor(carRequestVO.getColor());
             Engine engine = engineRepository.listByCodeNumber(carRequestVO.getEngineCode());
-
-            if (engine != null) {
-                findByCarName.setEngine(engine);
-            }
-
+            findByCarName.setEngine(engine);
             Brand findByBrandName = brandRepository.findByBrandName(carRequestVO.getBrandName());
-
-            if (findByBrandName != null) {
-                findByCarName.setBrand(findByBrandName);
-            }
             carRepository.persist(findByCarName);
+
             return CarResponseVO.create(findByCarName);
         } else {
             throw new ServiceException("No Engine found for modelName[%s]", modelName);
