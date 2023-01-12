@@ -27,6 +27,8 @@ alter table brand add constraint UK_hsu7w3m7wxvplg49ip7g0v5rr unique (brand_name
 
 alter table car add constraint UK_bb17i5x0hdmbvwvybelkj1ht2 unique (chassis_number);
 
+alter table engine add constraint UK_bb17i5x0hdmbvwvybelkj1ht244555 unique (code);
+
 alter table car add constraint FKj1mws2ruu9q6k2sa4pwlxthxn foreign key (brand_id) references brand;
 
 alter table car add constraint FKnednv54lgu9rfucgemr5eal0j foreign key (engine_id) references engine;
